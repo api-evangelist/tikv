@@ -1,15 +1,43 @@
+aid: tikv
 name: TiKV
 description: A distributed transactional key-value database originally created to
   complement TiDB. It provides horizontal scalability, strong consistency, and high
   availability with support for ACID transactions.
-url: https://tikv.org/
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/apis.yml
 tags:
-- Database
-- Distributed Systems
-- Key-Value Store
-- ACID
-- Open Source
-created: '2025'
-modified: '2025'
-apis: []
-common: []
+  - Database
+  - Distributed Systems
+  - Key-Value Store
+  - ACID
+  - Open Source
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: tikv:tikv
+    name: TiKV API
+    description: >-
+      TiKV provides client APIs for interacting with the distributed
+      transactional key-value store.
+    humanURL: https://tikv.org/
+    tags:
+      - Database
+      - Key-Value
+    properties:
+      - type: Documentation
+        url: https://tikv.org/docs/latest/develop/clients/introduction/
+      - type: Website
+        url: https://tikv.org/
+common:
+  - type: Website
+    url: https://tikv.org/
+  - type: Documentation
+    url: https://tikv.org/docs/
+  - type: GitHub Organization
+    url: https://github.com/tikv
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
