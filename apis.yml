@@ -1,17 +1,15 @@
 aid: tikv
 name: TiKV
-description: A distributed transactional key-value database originally created to
-  complement TiDB. It provides horizontal scalability, strong consistency, and high
-  availability with support for ACID transactions.
+description: A distributed transactional key-value database originally created to complement TiDB. It provides horizontal scalability, strong consistency, and high availability with support for ACID transactions.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/apis.yml
 tags:
+  - ACID
   - Database
   - Distributed Systems
   - Key-Value Store
-  - ACID
   - Open Source
 created: '2025-01-01'
 modified: '2026-03-16'
