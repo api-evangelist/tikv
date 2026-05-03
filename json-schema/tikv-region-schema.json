@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tikv/main/json-schema/tikv-region-schema.json",
+  "title": "TiKV Region",
+  "description": "Schema for a TiKV Raft region",
+  "type": "object",
+  "properties": {
+    "id": {"type": "integer", "description": "Region unique identifier"},
+    "start_key": {"type": "string", "description": "Region start key (hex-encoded)"},
+    "end_key": {"type": "string", "description": "Region end key (hex-encoded)"},
+    "region_epoch": {
+      "type": "object",
+      "properties": {
+        "conf_ver": {"type": "integer", "description": "Configuration version"},
+        "version": {"type": "integer", "description": "Region version"}
+      }
+    },
+    "peers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "store_id": {"type": "integer"}
+        }
+      },
+      "description": "Raft peers for this region"
+    },
+    "leader": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "integer"},
+        "store_id": {"type": "integer"}
+      },
+      "description": "Current Raft leader"
+    },
+    "written_bytes": {"type": "integer", "description": "Bytes written to region"},
+    "read_bytes": {"type": "integer", "description": "Bytes read from region"},
+    "approximate_size": {"type": "integer", "description": "Approximate region size in bytes"},
+    "approximate_keys": {"type": "integer", "description": "Approximate key count"}
+  },
+  "required": ["id"]
+}

@@ -1,0 +1,137 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TiKV Cluster Operations"
+  description: >-
+    Workflow capability for operating and monitoring TiKV distributed clusters.
+    Uses the TiKV HTTP management API to inspect node health, retrieve
+    configuration, collect metrics, and examine Raft region distribution.
+    Designed for database administrators, platform engineers, and SRE teams.
+  tags:
+    - TiKV
+    - Database
+    - Distributed Systems
+    - Cluster Operations
+    - Monitoring
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TIKV_NODE_HOST: TIKV_NODE_HOST
+
+capability:
+  consumes:
+    - import: tikv-http
+      location: ./shared/tikv-http-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: tikv-cluster-ops-api
+      description: "Unified REST API for TiKV cluster operations and monitoring."
+      resources:
+        - path: /v1/nodes/status
+          name: node-status
+          description: "Node health and version"
+          operations:
+            - method: GET
+              name: get-status
+              description: "Get TiKV node status"
+              call: "tikv-http.get-status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/nodes/metrics
+          name: node-metrics
+          description: "Node Prometheus metrics"
+          operations:
+            - method: GET
+              name: get-metrics
+              description: "Get Prometheus metrics from a TiKV node"
+              call: "tikv-http.get-metrics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/nodes/config
+          name: node-config
+          description: "Node configuration"
+          operations:
+            - method: GET
+              name: get-config
+              description: "Get TiKV node runtime configuration"
+              call: "tikv-http.get-config"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: update-config
+              description: "Update TiKV node runtime configuration"
+              call: "tikv-http.update-config"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/regions
+          name: regions
+          description: "Raft region inspection"
+          operations:
+            - method: GET
+              name: get-all-regions-meta
+              description: "Get metadata for all Raft regions"
+              call: "tikv-http.get-all-regions-meta"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: tikv-cluster-ops-mcp
+      transport: http
+      description: "MCP server for AI-assisted TiKV cluster operations."
+      tools:
+        - name: get-node-status
+          description: "Check TiKV node health status and version"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tikv-http.get-status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-node-metrics
+          description: "Retrieve Prometheus metrics from a TiKV node for performance analysis"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tikv-http.get-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-node-config
+          description: "Retrieve the runtime configuration of a TiKV node"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tikv-http.get-config"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-node-config
+          description: "Update TiKV node runtime configuration online"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "tikv-http.update-config"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-raft-regions
+          description: "Inspect Raft region distribution and metadata across the TiKV node"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tikv-http.get-all-regions-meta"
+          outputParameters:
+            - type: object
+              mapping: "$."

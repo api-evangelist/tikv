@@ -1,0 +1,92 @@
+vocabulary:
+  name: TiKV Vocabulary
+  description: >-
+    Taxonomy and vocabulary for TiKV distributed key-value database concepts
+    including Raft consensus, region management, transactions, and cluster
+    operations.
+  version: "2026-05-03"
+  terms:
+    - term: Region
+      definition: >-
+        A continuous range of key-value data managed as a single Raft group.
+        TiKV automatically splits regions when they grow too large.
+      category: Architecture
+      tags: [Raft, Architecture, Storage]
+    - term: Raft
+      definition: >-
+        A consensus algorithm used by TiKV to replicate data across multiple
+        nodes ensuring consistency and fault tolerance.
+      category: Consensus
+      tags: [Consensus, Replication]
+    - term: Placement Driver
+      definition: >-
+        The central coordinator of a TiKV cluster responsible for scheduling
+        region placement, load balancing, and cluster metadata management.
+      category: Architecture
+      tags: [Architecture, Cluster]
+    - term: Store
+      definition: >-
+        A TiKV node instance that contains one or more Raft peers and stores
+        actual key-value data.
+      category: Architecture
+      tags: [Architecture, Storage]
+    - term: Raw API
+      definition: >-
+        TiKV's simple key-value access API providing basic get, put, delete,
+        and scan operations without transaction semantics.
+      category: API
+      tags: [API, Key-Value]
+    - term: Transactional API
+      definition: >-
+        TiKV's ACID-compliant API supporting multi-key transactions using
+        Percolator-based two-phase commit protocol.
+      category: API
+      tags: [API, Transactions, ACID]
+    - term: Percolator
+      definition: >-
+        The distributed transaction protocol adapted by TiKV for multi-key
+        ACID transactions, based on Google's Percolator paper.
+      category: Transactions
+      tags: [Transactions, Protocol]
+    - term: Coprocessor
+      definition: >-
+        A TiKV feature that pushes computation (filtering, aggregation) down
+        to storage nodes to reduce data transfer, used by TiDB.
+      category: Features
+      tags: [Coprocessor, Performance]
+    - term: Region Epoch
+      definition: >-
+        A version counter pair (conf_ver, version) tracking configuration
+        and data changes to a region.
+      category: Architecture
+      tags: [Architecture, Versioning]
+    - term: Peer
+      definition: >-
+        A single replica of a Raft region stored on a TiKV node. Each region
+        typically has 3 peers across different stores.
+      category: Architecture
+      tags: [Raft, Replication]
+    - term: Key-Value Store
+      definition: >-
+        A type of NoSQL database that stores data as key-value pairs. TiKV
+        is a distributed, transactional key-value store.
+      category: Storage
+      tags: [Database, Storage]
+    - term: CNCF
+      definition: >-
+        Cloud Native Computing Foundation, the organization under which TiKV
+        is graduated as a top-level project.
+      category: Governance
+      tags: [Governance, Open Source]
+    - term: RocksDB
+      definition: >-
+        The embedded storage engine used by TiKV for persisting key-value data
+        on disk.
+      category: Storage
+      tags: [Storage, Engine]
+    - term: API v2
+      definition: >-
+        TiKV's improved client API version that adds keyspace support for
+        multi-tenancy and better isolation between workloads.
+      category: API
+      tags: [API, Versioning]

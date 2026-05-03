@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:20160/status",
+    "headers": {}
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "start_time_s": 1746144000,
+      "uptime": "24h 5m 12s",
+      "version": "7.1.0",
+      "git_hash": "abc1234def5678",
+      "address": "0.0.0.0:20160",
+      "status": "ok"
+    }
+  }
+}

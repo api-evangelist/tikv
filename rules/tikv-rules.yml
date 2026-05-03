@@ -1,0 +1,37 @@
+extends: spectral:oas
+rules:
+  tikv-operation-summary:
+    description: All operations must have a summary
+    message: "Operation must have a summary"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: summary
+      function: truthy
+
+  tikv-operation-tags:
+    description: All operations must have tags
+    message: "Operation must have at least one tag"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  tikv-operation-id:
+    description: All operations must have an operationId
+    message: "Operation must have an operationId"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: operationId
+      function: truthy
+
+  tikv-response-description:
+    description: All responses must have a description
+    message: "Response must have a description"
+    severity: warn
+    given: "$.paths[*][*].responses[*]"
+    then:
+      field: description
+      function: truthy

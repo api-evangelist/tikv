@@ -1,0 +1,15 @@
+{
+  "name": "TiKV Region",
+  "description": "Structure of a TiKV Raft region",
+  "fields": [
+    {"name": "id", "type": "integer", "required": true, "description": "Region ID"},
+    {"name": "start_key", "type": "string", "required": false, "description": "Start key hex"},
+    {"name": "end_key", "type": "string", "required": false, "description": "End key hex"},
+    {"name": "region_epoch.conf_ver", "type": "integer", "required": false, "description": "Config version"},
+    {"name": "region_epoch.version", "type": "integer", "required": false, "description": "Region version"},
+    {"name": "peers", "type": "array<object>", "required": false, "description": "Raft peer list"},
+    {"name": "leader", "type": "object", "required": false, "description": "Current leader"},
+    {"name": "approximate_size", "type": "integer", "required": false, "description": "Approx size bytes"},
+    {"name": "approximate_keys", "type": "integer", "required": false, "description": "Approx key count"}
+  ]
+}

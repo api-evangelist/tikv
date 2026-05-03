@@ -1,0 +1,332 @@
+openapi: 3.1.0
+info:
+  title: TiKV HTTP Management API
+  description: >-
+    TiKV exposes an HTTP management API on each node for status monitoring,
+    configuration management, and Prometheus metrics. The default port is 20160
+    for TiKV nodes and 2379 for PD (Placement Driver) nodes.
+  version: "7.1"
+  contact:
+    name: TiKV Community
+    url: https://tikv.org/
+  license:
+    name: Apache 2.0
+    url: https://github.com/tikv/tikv/blob/master/LICENSE
+servers:
+  - url: http://localhost:20160
+    description: TiKV node HTTP API (default port)
+tags:
+  - name: Status
+    description: Node status and health
+  - name: Configuration
+    description: TiKV node configuration management
+  - name: Metrics
+    description: Prometheus metrics endpoint
+  - name: Debug
+    description: Debug and diagnostic endpoints
+  - name: Regions
+    description: Region management and inspection
+paths:
+  /status:
+    get:
+      operationId: getStatus
+      summary: Get Node Status
+      description: >-
+        Returns the current status of the TiKV node including version
+        information, Git hash, and whether the node is ready. Also used as
+        a keepalive endpoint.
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Node status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeStatus'
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Get Prometheus Metrics
+      description: >-
+        Returns Prometheus-formatted metrics for the TiKV node including
+        operation counts, latencies, storage usage, and Raft consensus metrics.
+      tags:
+        - Metrics
+      responses:
+        '200':
+          description: Prometheus metrics returned in text format
+          content:
+            text/plain:
+              schema:
+                type: string
+  /config:
+    get:
+      operationId: getConfig
+      summary: Get Configuration
+      description: >-
+        Returns the current runtime configuration of the TiKV node. Supports
+        optional section and key filtering.
+      tags:
+        - Configuration
+      parameters:
+        - name: section
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by configuration section (e.g., storage, raftstore)
+        - name: key
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by specific configuration key within a section
+      responses:
+        '200':
+          description: Configuration returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TiKVConfig'
+    post:
+      operationId: updateConfig
+      summary: Update Configuration
+      description: >-
+        Updates runtime configuration of the TiKV node. Only certain
+        configuration keys support online updates.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Key-value pairs of configuration to update
+      responses:
+        '200':
+          description: Configuration updated successfully
+        '400':
+          description: Invalid configuration
+  /debug/pprof/profile:
+    get:
+      operationId: getPprofProfile
+      summary: Get CPU Profile
+      description: >-
+        Returns a pprof CPU profile for performance analysis.
+      tags:
+        - Debug
+      parameters:
+        - name: seconds
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Duration in seconds to profile
+      responses:
+        '200':
+          description: CPU profile data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /region/id/{id}:
+    get:
+      operationId: getRegionById
+      summary: Get Region By ID
+      description: >-
+        Returns information about a specific Raft region by its ID including
+        region metadata, leader, and peers.
+      tags:
+        - Regions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Region ID
+      responses:
+        '200':
+          description: Region information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionInfo'
+        '404':
+          description: Region not found
+  /region/key/{key}:
+    get:
+      operationId: getRegionByKey
+      summary: Get Region By Key
+      description: >-
+        Returns the Raft region that contains the specified key.
+      tags:
+        - Regions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Key to look up (hex-encoded)
+      responses:
+        '200':
+          description: Region information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionInfo'
+  /regions/meta:
+    get:
+      operationId: getAllRegionsMeta
+      summary: Get All Regions Metadata
+      description: >-
+        Returns metadata for all Raft regions on this TiKV node.
+      tags:
+        - Regions
+      responses:
+        '200':
+          description: Regions metadata returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  regions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegionInfo'
+  /fail/{failpoint}:
+    put:
+      operationId: setFailpoint
+      summary: Set Failpoint
+      description: >-
+        Sets a failpoint for testing and fault injection. Only available when
+        TiKV is compiled with fail-rs support.
+      tags:
+        - Debug
+      parameters:
+        - name: failpoint
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Failpoint name
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Failpoint set
+    delete:
+      operationId: deleteFailpoint
+      summary: Delete Failpoint
+      description: >-
+        Removes an active failpoint.
+      tags:
+        - Debug
+      parameters:
+        - name: failpoint
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Failpoint removed
+components:
+  schemas:
+    NodeStatus:
+      type: object
+      properties:
+        start_time_s:
+          type: integer
+          description: Unix timestamp when TiKV started
+        uptime:
+          type: string
+          description: Human-readable uptime duration
+        version:
+          type: string
+          description: TiKV version string
+        git_hash:
+          type: string
+          description: Git commit hash
+        address:
+          type: string
+          description: Node listen address
+        status:
+          type: string
+          description: Node status (ok, etc.)
+    TiKVConfig:
+      type: object
+      properties:
+        storage:
+          type: object
+          description: Storage engine configuration
+        raftstore:
+          type: object
+          description: Raft store configuration
+        coprocessor:
+          type: object
+          description: Coprocessor configuration
+        server:
+          type: object
+          description: Server configuration
+        rocksdb:
+          type: object
+          description: RocksDB configuration
+        pd:
+          type: object
+          description: Placement Driver connection configuration
+    RegionInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Region ID
+        start_key:
+          type: string
+          description: Start key of the region (hex-encoded)
+        end_key:
+          type: string
+          description: End key of the region (hex-encoded)
+        region_epoch:
+          type: object
+          properties:
+            conf_ver:
+              type: integer
+            version:
+              type: integer
+        peers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              store_id:
+                type: integer
+        leader:
+          type: object
+          properties:
+            id:
+              type: integer
+            store_id:
+              type: integer
+        written_bytes:
+          type: integer
+        read_bytes:
+          type: integer
+        approximate_size:
+          type: integer
+          description: Approximate region size in bytes
+        approximate_keys:
+          type: integer
+          description: Approximate number of keys in region

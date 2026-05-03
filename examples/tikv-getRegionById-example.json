@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:20160/region/id/1",
+    "headers": {}
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "start_key": "",
+      "end_key": "7480000000000000ff0100000000000000f8",
+      "region_epoch": {
+        "conf_ver": 5,
+        "version": 45
+      },
+      "peers": [
+        {"id": 2, "store_id": 1},
+        {"id": 3, "store_id": 2},
+        {"id": 4, "store_id": 3}
+      ],
+      "leader": {
+        "id": 2,
+        "store_id": 1
+      },
+      "written_bytes": 12345678,
+      "read_bytes": 98765432,
+      "approximate_size": 67108864,
+      "approximate_keys": 500000
+    }
+  }
+}

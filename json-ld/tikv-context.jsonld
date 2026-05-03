@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tikv": "https://tikv.org/vocab/",
+    "region_id": "tikv:regionId",
+    "start_key": "tikv:startKey",
+    "end_key": "tikv:endKey",
+    "store_id": "tikv:storeId",
+    "region_epoch": "tikv:regionEpoch",
+    "approximate_size": "tikv:approximateSize",
+    "approximate_keys": "tikv:approximateKeys",
+    "written_bytes": "tikv:writtenBytes",
+    "read_bytes": "tikv:readBytes",
+    "git_hash": "tikv:gitHash",
+    "TiKVRegion": "tikv:Region",
+    "TiKVPeer": "tikv:Peer",
+    "TiKVNode": "tikv:Node",
+    "TiKVCluster": "tikv:Cluster"
+  }
+}
