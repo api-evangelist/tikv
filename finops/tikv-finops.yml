@@ -1,162 +1,71 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TiKV
+providerId: tikv
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Database
+  - Open Source
+  - FinOps
+  - FOCUS
+description: 'FOCUS-aligned FinOps for TiKV: an Apache 2.0 open-source distributed key-value store with
+  no software-license cost. FinOps focus is on the underlying infrastructure spend (compute, storage,
+  network) the operator runs the cluster on, not on a vendor invoice.'
+sources:
+  - https://github.com/tikv/tikv
+  - https://focus.finops.org/focus-specification/v1-3/
+notes: TiKV has no commercial product or vendor invoice. FinOps observability lives in the host cloud
+  (AWS/GCP/Azure FOCUS exports) and the operator's own platform telemetry.
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: TiKV
-providerId: tikv
-publisherName: TiKV
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - ACID
-  - CNCF
-  - Database
-  - Distributed Systems
-  - Key-Value Store
-  - Open Source
-  - Rust
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the TiKV API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: TiKV Authors / CNCF
+serviceCategory: Database
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Open Source / No Vendor Bill
+  billingFrequency: N/A
   billingCurrency: USD
-  chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  chargeCategories: []
 focusColumns:
   ServiceName: TiKV
-  ServiceCategory: Developer Tools / API
-  ProviderName: TiKV
-  PublisherName: TiKV
-  InvoiceIssuerName: TiKV
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceCategory: Database
+  ProviderName: TiKV (CNCF)
+  PublisherName: TiKV Authors
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: tikv_node_hours
+    unit: instance-hour
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - cluster
+      - host
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
+  - name: tikv_storage
+    unit: GB-month
+    aggregation: max
     dimensions:
-      - api
+      - cluster
       - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: TiKV HTTP Management API
-    baseURL: http://localhost:20160
-    tags:
-      - Database
-      - Distributed Systems
-      - Monitoring
-      - Operations
-    serviceName: TiKV HTTP Management API
-    serviceCategory: API
-  - name: TiKV Java Client
-    baseURL: ''
-    tags:
-      - Database
-      - Java
-      - Key-Value
-      - SDK
-    serviceName: TiKV Java Client
-    serviceCategory: API
-  - name: TiKV Rust Client
-    baseURL: ''
-    tags:
-      - Database
-      - Key-Value
-      - Rust
-      - SDK
-    serviceName: TiKV Rust Client
-    serviceCategory: API
-  - name: TiKV Python Client
-    baseURL: ''
-    tags:
-      - Database
-      - Key-Value
-      - Python
-      - SDK
-    serviceName: TiKV Python Client
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+principles:
+  - name: Visibility
+    description: TiKV emits no vendor invoice — pull cluster cost from the underlying cloud's FOCUS export
+      (AWS CUR 2.0, GCP Billing, Azure Cost Management) tagged with the TiKV cluster name.
+  - name: Allocation
+    description: Tag every TiKV node, PV, and load balancer with the owning team so cluster cost rolls
+      up to the data-platform group rather than landing in a generic infrastructure bucket.
+  - name: Optimization
+    description: Right-size TiKV node counts based on Region count, replica factor, and gRPC concurrency;
+      use storage classes that match access patterns; consolidate small clusters where consistency boundaries
+      allow.
+  - name: Accountability
+    description: A platform owner is accountable for cluster sizing, upgrade cadence, and any third-party
+      support contract (e.g. PingCAP) used to operate TiKV.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
