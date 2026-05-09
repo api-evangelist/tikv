@@ -4,10 +4,10 @@
     {
       "source": "https://tikv.org/blog/",
       "feed_url": "https://tikv.org/blog/index.xml",
-      "saved": 10,
-      "title": "The TiKV blog on TiKV"
+      "title": "The TiKV blog on TiKV",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:37:29Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
