@@ -94,11 +94,11 @@ common:
     url: https://tikv.org/
   - type: Documentation
     url: https://tikv.org/docs/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://tikv.org/docs/7.1/concepts/overview/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/tikv
-  - type: GitHub Repository
+  - type: GitHubRepository
     url: https://github.com/tikv/tikv
   - type: Governance
     url: https://github.com/tikv/tikv/blob/master/GOVERNANCE.md
@@ -108,7 +108,7 @@ common:
     url: https://tikv.org/blog/
   - type: Community
     url: https://tikv.org/community/
-  - type: Roadmap
+  - type: RoadMap
     url: https://github.com/tikv/tikv/blob/master/ROADMAP.md
   - type: License
     url: https://github.com/tikv/tikv/blob/master/LICENSE
