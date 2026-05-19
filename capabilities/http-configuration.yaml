@@ -1,0 +1,117 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TiKV HTTP Management API — Configuration
+  description: 'TiKV HTTP Management API — Configuration. 2 operations. Lead operation: Get Configuration. Self-contained
+    Naftiko capability covering one Tikv business surface.'
+  tags:
+  - Tikv
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKV_API_KEY: TIKV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-configuration
+    baseUri: http://localhost:20160
+    description: TiKV HTTP Management API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: config
+      path: /config
+      operations:
+      - name: getconfig
+        method: GET
+        description: Get Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section
+          in: query
+          type: string
+          description: Filter by configuration section (e.g., storage, raftstore)
+        - name: key
+          in: query
+          type: string
+          description: Filter by specific configuration key within a section
+      - name: updateconfig
+        method: POST
+        description: Update Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: http-configuration-rest
+    port: 8080
+    description: REST adapter for TiKV HTTP Management API — Configuration. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/config
+      name: config
+      description: REST surface for config.
+      operations:
+      - method: GET
+        name: getconfig
+        description: Get Configuration
+        call: http-configuration.getconfig
+        with:
+          section: rest.section
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updateconfig
+        description: Update Configuration
+        call: http-configuration.updateconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TiKV HTTP Management API — Configuration. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-configuration
+      description: Get Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-configuration.getconfig
+      with:
+        section: tools.section
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-configuration
+      description: Update Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: http-configuration.updateconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,151 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TiKV HTTP Management API — Regions
+  description: 'TiKV HTTP Management API — Regions. 3 operations. Lead operation: Get Region By ID. Self-contained Naftiko
+    capability covering one Tikv business surface.'
+  tags:
+  - Tikv
+  - Regions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKV_API_KEY: TIKV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-regions
+    baseUri: http://localhost:20160
+    description: TiKV HTTP Management API — Regions business capability. Self-contained, no shared references.
+    resources:
+    - name: region-id-id
+      path: /region/id/{id}
+      operations:
+      - name: getregionbyid
+        method: GET
+        description: Get Region By ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: Region ID
+          required: true
+    - name: region-key-key
+      path: /region/key/{key}
+      operations:
+      - name: getregionbykey
+        method: GET
+        description: Get Region By Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: key
+          in: path
+          type: string
+          description: Key to look up (hex-encoded)
+          required: true
+    - name: regions-meta
+      path: /regions/meta
+      operations:
+      - name: getallregionsmeta
+        method: GET
+        description: Get All Regions Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: http-regions-rest
+    port: 8080
+    description: REST adapter for TiKV HTTP Management API — Regions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/region/id/{id}
+      name: region-id-id
+      description: REST surface for region-id-id.
+      operations:
+      - method: GET
+        name: getregionbyid
+        description: Get Region By ID
+        call: http-regions.getregionbyid
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/region/key/{key}
+      name: region-key-key
+      description: REST surface for region-key-key.
+      operations:
+      - method: GET
+        name: getregionbykey
+        description: Get Region By Key
+        call: http-regions.getregionbykey
+        with:
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/regions/meta
+      name: regions-meta
+      description: REST surface for regions-meta.
+      operations:
+      - method: GET
+        name: getallregionsmeta
+        description: Get All Regions Metadata
+        call: http-regions.getallregionsmeta
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-regions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TiKV HTTP Management API — Regions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-region-id
+      description: Get Region By ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-regions.getregionbyid
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-region-key
+      description: Get Region By Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-regions.getregionbykey
+      with:
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-regions-metadata
+      description: Get All Regions Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-regions.getallregionsmeta
+      outputParameters:
+      - type: object
+        mapping: $.

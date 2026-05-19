@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TiKV HTTP Management API — Metrics
+  description: 'TiKV HTTP Management API — Metrics. 1 operations. Lead operation: Get Prometheus Metrics. Self-contained Naftiko
+    capability covering one Tikv business surface.'
+  tags:
+  - Tikv
+  - Metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKV_API_KEY: TIKV_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-metrics
+    baseUri: http://localhost:20160
+    description: TiKV HTTP Management API — Metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: metrics
+      path: /metrics
+      operations:
+      - name: getmetrics
+        method: GET
+        description: Get Prometheus Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: http-metrics-rest
+    port: 8080
+    description: REST adapter for TiKV HTTP Management API — Metrics. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/metrics
+      name: metrics
+      description: REST surface for metrics.
+      operations:
+      - method: GET
+        name: getmetrics
+        description: Get Prometheus Metrics
+        call: http-metrics.getmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TiKV HTTP Management API — Metrics. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-prometheus-metrics
+      description: Get Prometheus Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-metrics.getmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
