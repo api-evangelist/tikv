@@ -2,12 +2,20 @@
   "repo": "tikv",
   "feeds": [
     {
-      "source": "https://tikv.org/blog/",
+      "source": "https://tikv.org/blog/index.xml",
       "feed_url": "https://tikv.org/blog/index.xml",
-      "title": "The TiKV blog on TiKV",
-      "saved": 45
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://www.cncf.io/projects/tikv/",
+      "feed_url": "https://www.cncf.io/projects/tikv/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
   "post_count": 55,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
