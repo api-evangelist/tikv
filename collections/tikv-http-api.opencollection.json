@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TiKV HTTP Management API",
+    "version": "7.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Node Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/status"
+          },
+          "docs": "Returns the current status of the TiKV node including version information, Git hash, and whether the node is ready. Also used as a keepalive endpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Prometheus Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/metrics"
+          },
+          "docs": "Returns Prometheus-formatted metrics for the TiKV node including operation counts, latencies, storage usage, and Raft consensus metrics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/config",
+            "params": [
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "Filter by configuration section (e.g., storage, raftstore)"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific configuration key within a section"
+              }
+            ]
+          },
+          "docs": "Returns the current runtime configuration of the TiKV node. Supports optional section and key filtering."
+        },
+        {
+          "info": {
+            "name": "Update Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:20160/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates runtime configuration of the TiKV node. Only certain configuration keys support online updates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Debug",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get CPU Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/debug/pprof/profile",
+            "params": [
+              {
+                "name": "seconds",
+                "value": "",
+                "type": "query",
+                "description": "Duration in seconds to profile"
+              }
+            ]
+          },
+          "docs": "Returns a pprof CPU profile for performance analysis."
+        },
+        {
+          "info": {
+            "name": "Set Failpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:20160/fail/:failpoint",
+            "params": [
+              {
+                "name": "failpoint",
+                "value": "",
+                "type": "path",
+                "description": "Failpoint name"
+              }
+            ]
+          },
+          "docs": "Sets a failpoint for testing and fault injection. Only available when TiKV is compiled with fail-rs support."
+        },
+        {
+          "info": {
+            "name": "Delete Failpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:20160/fail/:failpoint",
+            "params": [
+              {
+                "name": "failpoint",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes an active failpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Region By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/region/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Region ID"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific Raft region by its ID including region metadata, leader, and peers."
+        },
+        {
+          "info": {
+            "name": "Get Region By Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/region/key/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key to look up (hex-encoded)"
+              }
+            ]
+          },
+          "docs": "Returns the Raft region that contains the specified key."
+        },
+        {
+          "info": {
+            "name": "Get All Regions Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/regions/meta"
+          },
+          "docs": "Returns metadata for all Raft regions on this TiKV node."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

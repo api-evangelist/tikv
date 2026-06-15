@@ -1,9 +1,10 @@
 aid: tikv
 name: TiKV
-description: TiKV is a CNCF-graduated distributed transactional key-value database built in Rust with Raft consensus. Originally
-  created to complement TiDB, it provides horizontal scalability, strong consistency, and high availability with ACID transaction
-  support. Client APIs are available for Java, Rust, Python, Go, and C++. An HTTP management API provides status, configuration,
-  and monitoring endpoints.
+description: >-
+  TiKV is a CNCF-graduated distributed transactional key-value database built in Rust with Raft consensus. Originally
+  created to complement TiDB, it provides horizontal scalability, strong consistency, and high availability with ACID
+  transaction support. Client APIs are available for Java, Rust, Python, Go, and C++. An HTTP management API provides
+  status, configuration, and monitoring endpoints.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/apis.yml
@@ -21,73 +22,65 @@ specificationVersion: '0.19'
 apis:
   - aid: tikv:tikv-http-api
     name: TiKV HTTP Management API
-    description: TiKV exposes an HTTP API for cluster management, status monitoring, configuration retrieval and updates, and
+    description: >-
+      TiKV exposes an HTTP API for cluster management, status monitoring, configuration retrieval and updates, and
       Prometheus metrics collection.
     humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
     baseURL: http://localhost:20160
     tags:
-    - Database
-    - Distributed Systems
-    - Monitoring
-    - Operations
+      - Database
+      - Distributed Systems
+      - Monitoring
+      - Operations
     properties:
-    - type: Documentation
-      url: https://tikv.org/docs/dev/deploy/monitor/api/
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/openapi/tikv-http-api-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/http-configuration.yaml
-    - type: NaftikoCapability
-      url: capabilities/http-debug.yaml
-    - type: NaftikoCapability
-      url: capabilities/http-metrics.yaml
-    - type: NaftikoCapability
-      url: capabilities/http-regions.yaml
-    - type: NaftikoCapability
-      url: capabilities/http-status.yaml
+      - type: Documentation
+        url: https://tikv.org/docs/dev/deploy/monitor/api/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/openapi/tikv-http-api-openapi.yml
   - aid: tikv:tikv-client-java
     name: TiKV Java Client
-    description: The official Java client for TiKV. Supports raw key-value operations and transactional operations via gRPC.
+    description: >-
+      The official Java client for TiKV. Supports raw key-value operations and transactional operations via gRPC.
       Available on Maven Central.
     humanURL: https://github.com/tikv/client-java
     tags:
-    - Database
-    - Java
-    - Key-Value
-    - SDK
+      - Database
+      - Java
+      - Key-Value
+      - SDK
     properties:
-    - type: Documentation
-      url: https://github.com/tikv/client-java
-    - type: GitHub
-      url: https://github.com/tikv/client-java
+      - type: Documentation
+        url: https://github.com/tikv/client-java
+      - type: GitHub
+        url: https://github.com/tikv/client-java
   - aid: tikv:tikv-client-rust
     name: TiKV Rust Client
     description: The official Rust client for TiKV providing raw and transactional key-value access to TiKV clusters.
     humanURL: https://github.com/tikv/client-rust
     tags:
-    - Database
-    - Key-Value
-    - Rust
-    - SDK
+      - Database
+      - Key-Value
+      - Rust
+      - SDK
     properties:
-    - type: Documentation
-      url: https://github.com/tikv/client-rust
-    - type: GitHub
-      url: https://github.com/tikv/client-rust
+      - type: Documentation
+        url: https://github.com/tikv/client-rust
+      - type: GitHub
+        url: https://github.com/tikv/client-rust
   - aid: tikv:tikv-client-python
     name: TiKV Python Client
     description: The official Python client for TiKV supporting raw and transactional key-value operations.
     humanURL: https://github.com/tikv/client-py
     tags:
-    - Database
-    - Key-Value
-    - Python
-    - SDK
+      - Database
+      - Key-Value
+      - Python
+      - SDK
     properties:
-    - type: Documentation
-      url: https://github.com/tikv/client-py
-    - type: GitHub
-      url: https://github.com/tikv/client-py
+      - type: Documentation
+        url: https://github.com/tikv/client-py
+      - type: GitHub
+        url: https://github.com/tikv/client-py
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/pingcap
