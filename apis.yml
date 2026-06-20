@@ -6,7 +6,7 @@ description: >-
   transaction support. Client APIs are available for Java, Rust, Python, Go, and C++. An HTTP management API provides
   status, configuration, and monitoring endpoints.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/apis.yml
 tags:
   - ACID
