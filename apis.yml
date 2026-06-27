@@ -108,15 +108,15 @@ common:
     url: https://github.com/tikv/tikv/blob/master/LICENSE
   - type: Slack
     url: https://slack.tidb.io/invite?team=tikv-wg
-  - type: Forum
+  - type: Forums
     url: https://internals.tidb.io/
-  - type: SDK
+  - type: SDKs
     url: https://github.com/tikv/client-java
-  - type: SDK
+  - type: SDKs
     url: https://github.com/tikv/client-rust
-  - type: SDK
+  - type: SDKs
     url: https://github.com/tikv/client-py
-  - type: SDK
+  - type: SDKs
     url: https://github.com/tikv/client-go
 maintainers:
   - FN: Kin Lane
