@@ -82,6 +82,8 @@ apis:
       - type: GitHub
         url: https://github.com/tikv/client-py
 common:
+  - type: DomainSecurity
+    url: security/tikv-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/pingcap
   - type: Website
