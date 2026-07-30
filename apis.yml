@@ -6,7 +6,19 @@ description: >-
   transaction support. Client APIs are available for Java, Rust, Python, Go, and C++. An HTTP management API provides
   status, configuration, and monitoring endpoints.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tikv.png
 url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/apis.yml
 tags:
   - ACID
@@ -20,67 +32,112 @@ created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: tikv:tikv-http-api
-    name: TiKV HTTP Management API
-    description: >-
-      TiKV exposes an HTTP API for cluster management, status monitoring, configuration retrieval and updates, and
-      Prometheus metrics collection.
-    humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
-    baseURL: http://localhost:20160
-    tags:
-      - Database
-      - Distributed Systems
-      - Monitoring
-      - Operations
-    properties:
-      - type: Documentation
-        url: https://tikv.org/docs/dev/deploy/monitor/api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/tikv/refs/heads/main/openapi/tikv-http-api-openapi.yml
-  - aid: tikv:tikv-client-java
-    name: TiKV Java Client
-    description: >-
-      The official Java client for TiKV. Supports raw key-value operations and transactional operations via gRPC.
-      Available on Maven Central.
-    humanURL: https://github.com/tikv/client-java
-    tags:
-      - Database
-      - Java
-      - Key-Value
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://github.com/tikv/client-java
-      - type: GitHub
-        url: https://github.com/tikv/client-java
-  - aid: tikv:tikv-client-rust
-    name: TiKV Rust Client
-    description: The official Rust client for TiKV providing raw and transactional key-value access to TiKV clusters.
-    humanURL: https://github.com/tikv/client-rust
-    tags:
-      - Database
-      - Key-Value
-      - Rust
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://github.com/tikv/client-rust
-      - type: GitHub
-        url: https://github.com/tikv/client-rust
-  - aid: tikv:tikv-client-python
-    name: TiKV Python Client
-    description: The official Python client for TiKV supporting raw and transactional key-value operations.
-    humanURL: https://github.com/tikv/client-py
-    tags:
-      - Database
-      - Key-Value
-      - Python
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://github.com/tikv/client-py
-      - type: GitHub
-        url: https://github.com/tikv/client-py
+- aid: tikv:tikv-client-java
+  name: TiKV Java Client
+  description: >-
+    The official Java client for TiKV. Supports raw key-value operations and transactional operations
+    via gRPC. Available on Maven Central.
+  humanURL: https://github.com/tikv/client-java
+  tags:
+  - Database
+  - Java
+  - Key-Value
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://github.com/tikv/client-java
+  - type: GitHub
+    url: https://github.com/tikv/client-java
+- aid: tikv:tikv-client-rust
+  name: TiKV Rust Client
+  description: >-
+    The official Rust client for TiKV providing raw and transactional key-value access to TiKV clusters.
+  humanURL: https://github.com/tikv/client-rust
+  tags:
+  - Database
+  - Key-Value
+  - Rust
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://github.com/tikv/client-rust
+  - type: GitHub
+    url: https://github.com/tikv/client-rust
+- aid: tikv:tikv-client-python
+  name: TiKV Python Client
+  description: >-
+    The official Python client for TiKV supporting raw and transactional key-value operations.
+  humanURL: https://github.com/tikv/client-py
+  tags:
+  - Database
+  - Key-Value
+  - Python
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://github.com/tikv/client-py
+  - type: GitHub
+    url: https://github.com/tikv/client-py
+- aid: tikv:tikv-configuration-api
+  name: TiKV Configuration API
+  description: TiKV node configuration management
+  humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
+  baseURL: http://localhost:20160
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/tikv-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://tikv.org/docs/dev/deploy/monitor/api/
+- aid: tikv:tikv-debug-api
+  name: TiKV Debug API
+  description: Debug and diagnostic endpoints
+  humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
+  baseURL: http://localhost:20160
+  tags:
+  - Debug
+  properties:
+  - type: OpenAPI
+    url: openapi/tikv-debug-api-openapi.yml
+  - type: Documentation
+    url: https://tikv.org/docs/dev/deploy/monitor/api/
+- aid: tikv:tikv-metrics-api
+  name: TiKV Metrics API
+  description: Prometheus metrics endpoint
+  humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
+  baseURL: http://localhost:20160
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/tikv-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://tikv.org/docs/dev/deploy/monitor/api/
+- aid: tikv:tikv-regions-api
+  name: TiKV Regions API
+  description: Region management and inspection
+  humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
+  baseURL: http://localhost:20160
+  tags:
+  - Regions
+  properties:
+  - type: OpenAPI
+    url: openapi/tikv-regions-api-openapi.yml
+  - type: Documentation
+    url: https://tikv.org/docs/dev/deploy/monitor/api/
+- aid: tikv:tikv-status-api
+  name: TiKV Status API
+  description: Node status and health
+  humanURL: https://tikv.org/docs/dev/deploy/monitor/api/
+  baseURL: http://localhost:20160
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/tikv-status-api-openapi.yml
+  - type: Documentation
+    url: https://tikv.org/docs/dev/deploy/monitor/api/
 common:
   - type: AgenticAccess
     url: agentic-access/tikv-agentic-access.yml
