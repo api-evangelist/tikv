@@ -1,0 +1,22 @@
+{
+  "provider": "tikv",
+  "sources": [
+    "tikv-configuration-api-openapi.yml",
+    "tikv-debug-api-openapi.yml",
+    "tikv-metrics-api-openapi.yml",
+    "tikv-regions-api-openapi.yml",
+    "tikv-status-api-openapi.yml"
+  ],
+  "outputs": [
+    "tikv-configuration-api-openapi.yml",
+    "tikv-debug-api-openapi.yml",
+    "tikv-metrics-api-openapi.yml",
+    "tikv-regions-api-openapi.yml",
+    "tikv-status-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
