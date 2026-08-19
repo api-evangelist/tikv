@@ -1,0 +1,283 @@
+{
+  "item": [
+    {
+      "id": "799b5c60-995b-480d-a396-8ea2a380de37",
+      "name": "Debug",
+      "description": {
+        "content": "Debug and diagnostic endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94442271-1f9e-4dd2-ae46-cc2cb54522e0",
+          "name": "Get CPU Profile",
+          "request": {
+            "name": "Get CPU Profile",
+            "description": {
+              "content": "Returns a pprof CPU profile for performance analysis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "debug",
+                "pprof",
+                "profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "seconds",
+                  "value": "10",
+                  "description": "Duration in seconds to profile"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e986e41c-ad63-423c-8611-27e51f1b6595",
+              "name": "CPU profile data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "debug",
+                    "pprof",
+                    "profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "seconds",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fde0f78e-55d4-4540-8d44-1e601e685f1a",
+          "name": "Set Failpoint",
+          "request": {
+            "name": "Set Failpoint",
+            "description": {
+              "content": "Sets a failpoint for testing and fault injection. Only available when TiKV is compiled with fail-rs support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fail",
+                ":failpoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "failpoint",
+                  "description": "(Required) Failpoint name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "ccd1400e-dc9d-4cea-bcb5-ea93bcbb61b2",
+              "name": "Failpoint set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fail",
+                    ":failpoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "failpoint",
+                      "description": "(Required) Failpoint name"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1da61f16-69de-48ed-b3af-c805dee60890",
+          "name": "Delete Failpoint",
+          "request": {
+            "name": "Delete Failpoint",
+            "description": {
+              "content": "Removes an active failpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fail",
+                ":failpoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "failpoint",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e73949d-4a40-4977-b665-d1a55d9a3bb5",
+              "name": "Failpoint removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fail",
+                    ":failpoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "failpoint",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:20160",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cd469c01-f071-44bd-a5d7-9984983c3608",
+    "name": "TiKV HTTP Management Configuration Debug API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "TiKV exposes an HTTP management API on each node for status monitoring, configuration management, and Prometheus metrics. The default port is 20160 for TiKV nodes and 2379 for PD (Placement Driver) nodes.\n\nContact Support:\n Name: TiKV Community",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TiKV HTTP Management Configuration Regions API",
+    "version": "7.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Region By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/region/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Region ID"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific Raft region by its ID including region metadata, leader, and peers."
+        },
+        {
+          "info": {
+            "name": "Get Region By Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/region/key/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key to look up (hex-encoded)"
+              }
+            ]
+          },
+          "docs": "Returns the Raft region that contains the specified key."
+        },
+        {
+          "info": {
+            "name": "Get All Regions Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/regions/meta"
+          },
+          "docs": "Returns metadata for all Raft regions on this TiKV node."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

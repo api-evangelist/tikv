@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TiKV HTTP Management Configuration Debug API",
+    "version": "7.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Debug",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get CPU Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:20160/debug/pprof/profile",
+            "params": [
+              {
+                "name": "seconds",
+                "value": "",
+                "type": "query",
+                "description": "Duration in seconds to profile"
+              }
+            ]
+          },
+          "docs": "Returns a pprof CPU profile for performance analysis."
+        },
+        {
+          "info": {
+            "name": "Set Failpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:20160/fail/:failpoint",
+            "params": [
+              {
+                "name": "failpoint",
+                "value": "",
+                "type": "path",
+                "description": "Failpoint name"
+              }
+            ]
+          },
+          "docs": "Sets a failpoint for testing and fault injection. Only available when TiKV is compiled with fail-rs support."
+        },
+        {
+          "info": {
+            "name": "Delete Failpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:20160/fail/:failpoint",
+            "params": [
+              {
+                "name": "failpoint",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes an active failpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
