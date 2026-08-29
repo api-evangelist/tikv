@@ -6,6 +6,18 @@ description: >-
   transaction support. Client APIs are available for Java, Rust, Python, Go, and C++. An HTTP management API provides
   status, configuration, and monitoring endpoints.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
@@ -147,6 +159,16 @@ apis:
   - type: Documentation
     url: https://tikv.org/docs/dev/deploy/monitor/api/
 common:
+  - type: IssueTracker
+    url: https://github.com/tikv/tikv/issues
+  - type: Releases
+    url: https://github.com/tikv/tikv/releases
+  - type: SecurityPolicy
+    url: https://github.com/tikv/tikv/blob/master/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/tikv/tikv/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/tikv/tikv/blob/master/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/tikv-agentic-access.yml
   - type: DomainSecurity
