@@ -1,11 +1,7 @@
 {
   "provider": "tikv",
   "sources": [
-    "tikv-configuration-api-openapi.yml",
-    "tikv-debug-api-openapi.yml",
-    "tikv-metrics-api-openapi.yml",
-    "tikv-regions-api-openapi.yml",
-    "tikv-status-api-openapi.yml"
+    "_original/tikv-http-api-openapi.yml"
   ],
   "outputs": [
     "tikv-configuration-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tikv-http-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tikv-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tikv-debug-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tikv-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tikv-regions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tikv-status-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
