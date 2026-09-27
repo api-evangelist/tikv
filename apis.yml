@@ -7,16 +7,21 @@ description: >-
   status, configuration, and monitoring endpoints.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: self-hosted
+  license: Apache-2.0
+  license_evidence:
+    repo: tikv/tikv
+    spdx: Apache-2.0
+    stars: 16874
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Self-hosted open source · you run it yourself
+  confidence: medium
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: free
@@ -38,7 +43,7 @@ tags:
   - Database
   - Distributed Systems
   - Key-Value Store
-  - Open-Source
+  - Open Source
   - Rust
 tags_raw:
   - ACID
@@ -48,6 +53,7 @@ tags_raw:
   - Key-Value Store
   - Open Source
   - Rust
+  - Open-Source
 created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.23'
@@ -59,6 +65,11 @@ apis:
     via gRPC. Available on Maven Central.
   humanURL: https://github.com/tikv/client-java
   tags:
+  - Database
+  - Java
+  - Key-Value Store
+  - SDK
+  tags_raw:
   - Database
   - Java
   - Key-Value
@@ -75,6 +86,11 @@ apis:
   humanURL: https://github.com/tikv/client-rust
   tags:
   - Database
+  - Key-Value Store
+  - Rust
+  - SDK
+  tags_raw:
+  - Database
   - Key-Value
   - Rust
   - SDK
@@ -89,6 +105,11 @@ apis:
     The official Python client for TiKV supporting raw and transactional key-value operations.
   humanURL: https://github.com/tikv/client-py
   tags:
+  - Database
+  - Key-Value Store
+  - Python
+  - SDK
+  tags_raw:
   - Database
   - Key-Value
   - Python
